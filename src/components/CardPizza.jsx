@@ -1,28 +1,43 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ pizza, addToCart }) => {
     return (
-        <div className="card shadow-sm m-3 h-100 d-flex flex-column" style={{ width: "18rem" }}>
-            <img src={img} className="card-img-top" alt={name} />
+        <div className="card shadow-sm h-100">
+            <img
+                src={pizza.img}
+                className="card-img-top"
+                alt={pizza.name}
+            />
 
-            <div className="card-body">
-                <h3 className="card-tittle">{name}</h3>
-                <p className="card-text fw-bold">Precio: ${price.toLocaleString()}</p>
+            <div className="card-body d-flex flex-column">
+                <h5 className="card-title text-capitalize">
+                    {pizza.name}
+                </h5>
 
-                <h5>Ingredientes:</h5>
+                <p className="fw-bold">
+                    Precio: ${pizza.price.toLocaleString()}
+                </p>
+
+                <p className="mb-1 fw-bold">Ingredientes:</p>
                 <ul>
-                    {ingredients.map((item, i) => (
-                        <li key={i}>{item}</li>
+                    {pizza.ingredients.map((ing, index) => (
+                        <li key={index}>{ing}</li>
                     ))}
                 </ul>
 
-                <div className="d-flex justify-content-between mt-auto">
-                    <button className="btn btn-outline-primary">Ver más 👀</button>
-                    <button className="btn btn-success" >Añadir 🛒</button>
-                </div>
+                <div className="mt-auto d-flex justify-content-between">
+                    <button className="btn btn-outline-primary">
+                        Ver más 👀
+                    </button>
 
+                    <button
+                        className="btn btn-success"
+                        onClick={() => addToCart(pizza)}
+                    >
+                        Añadir 🛒
+                    </button>
+                </div>
             </div>
         </div>
     );
 };
 
 export default CardPizza;
-
