@@ -1,8 +1,17 @@
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import CardPizza from "./CardPizza";
-import { pizzas } from "../pizzas";
 
-const Home = ({ addToCart }) => {
+const Home = () => {
+    const [pizzas, setPizzas] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/api/pizzas")
+            .then((res) => res.json())
+            .then((data) => setPizzas(data))
+            .catch((error) => console.error(error));
+    }, []);
+
     return (
         <>
             <Header />
@@ -11,10 +20,7 @@ const Home = ({ addToCart }) => {
                 <div className="row">
                     {pizzas.map((pizza) => (
                         <div className="col-md-4" key={pizza.id}>
-                            <CardPizza
-                                pizza={pizza}
-                                addToCart={addToCart}
-                            />
+                            <CardPizza pizza={pizza} />
                         </div>
                     ))}
                 </div>

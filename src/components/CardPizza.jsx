@@ -1,25 +1,18 @@
-const CardPizza = ({ pizza, addToCart }) => {
+const CardPizza = ({ pizza }) => {
     return (
         <div className="card shadow-sm h-100">
-            <img
-                src={pizza.img}
-                className="card-img-top"
-                alt={pizza.name}
-            />
+            <img src={pizza.img} className="card-img-top" alt={pizza.name} />
 
             <div className="card-body d-flex flex-column">
-                <h5 className="card-title text-capitalize">
-                    {pizza.name}
-                </h5>
+                <h5 className="card-title">{pizza.name}</h5>
 
                 <p className="fw-bold">
                     Precio: ${pizza.price.toLocaleString()}
                 </p>
 
-                <p className="mb-1 fw-bold">Ingredientes:</p>
                 <ul>
-                    {pizza.ingredients.map((ing, index) => (
-                        <li key={index}>{ing}</li>
+                    {pizza.ingredients.map((ing, i) => (
+                        <li key={i}>{ing}</li>
                     ))}
                 </ul>
 
@@ -27,11 +20,7 @@ const CardPizza = ({ pizza, addToCart }) => {
                     <button className="btn btn-outline-primary">
                         Ver más 👀
                     </button>
-
-                    <button
-                        className="btn btn-success"
-                        onClick={() => addToCart(pizza)}
-                    >
+                    <button className="btn btn-success">
                         Añadir 🛒
                     </button>
                 </div>
