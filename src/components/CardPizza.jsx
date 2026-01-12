@@ -1,4 +1,24 @@
-const CardPizza = ({ pizza }) => {
+const CardPizza = ({ pizza, cart, setCart }) => {
+
+    const addToCart = () => {
+        const exists = cart.find(item => item.id === pizza.id);
+
+        if (exists) {
+            setCart(
+                cart.map(item =>
+                    item.id === pizza.id
+                        ? { ...item, count: item.count + 1 }
+                        : item
+                )
+            );
+        } else {
+            setCart([
+                ...cart,
+                { ...pizza, count: 1 }
+            ]);
+        }
+    };
+
     return (
         <div className="card shadow-sm h-100">
             <img src={pizza.img} className="card-img-top" alt={pizza.name} />
@@ -20,7 +40,11 @@ const CardPizza = ({ pizza }) => {
                     <button className="btn btn-outline-primary">
                         Ver más 👀
                     </button>
-                    <button className="btn btn-success">
+
+                    <button
+                        className="btn btn-success"
+                        onClick={addToCart}
+                    >
                         Añadir 🛒
                     </button>
                 </div>

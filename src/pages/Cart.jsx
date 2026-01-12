@@ -1,6 +1,12 @@
-import { useState } from "react";
-
 const Cart = ({ cart, setCart }) => {
+
+    if (!cart || cart.length === 0) {
+        return (
+            <div className="container mt-5 text-center">
+                <h2>🛒 Tu carrito está vacío</h2>
+            </div>
+        );
+    }
 
     const increase = (id) => {
         setCart(
@@ -62,9 +68,9 @@ const Cart = ({ cart, setCart }) => {
 
             <hr />
             <h4>Total: ${total.toLocaleString()}</h4>
-            <button
-                className="btn btn-success w-100 mt-3"
-            >
+
+            {/* botón NO funcional como pide el hito */}
+            <button className="btn btn-success w-100 mt-3">
                 Pagar 💳
             </button>
         </div>

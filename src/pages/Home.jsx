@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Header from "./Header";
-import CardPizza from "./CardPizza";
+import Header from "../components/Header";
+import CardPizza from "../components/CardPizza";
 
-const Home = () => {
+const Home = ({ cart, setCart }) => {
     const [pizzas, setPizzas] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,11 @@ const Home = () => {
                 <div className="row">
                     {pizzas.map((pizza) => (
                         <div className="col-md-4" key={pizza.id}>
-                            <CardPizza pizza={pizza} />
+                            <CardPizza
+                                pizza={pizza}
+                                cart={cart}
+                                setCart={setCart}
+                            />
                         </div>
                     ))}
                 </div>
