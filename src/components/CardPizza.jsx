@@ -1,30 +1,10 @@
-const CardPizza = ({ pizza, cart, setCart }) => {
-
-    const addToCart = () => {
-        const exists = cart.find(item => item.id === pizza.id);
-
-        if (exists) {
-            setCart(
-                cart.map(item =>
-                    item.id === pizza.id
-                        ? { ...item, count: item.count + 1 }
-                        : item
-                )
-            );
-        } else {
-            setCart([
-                ...cart,
-                { ...pizza, count: 1 }
-            ]);
-        }
-    };
-
+const CardPizza = ({ pizza, addToCart }) => {
     return (
         <div className="card shadow-sm h-100">
             <img src={pizza.img} className="card-img-top" alt={pizza.name} />
 
             <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{pizza.name}</h5>
+                <h5 className="card-title text-capitalize">{pizza.name}</h5>
 
                 <p className="fw-bold">
                     Precio: ${pizza.price.toLocaleString()}
@@ -40,10 +20,9 @@ const CardPizza = ({ pizza, cart, setCart }) => {
                     <button className="btn btn-outline-primary">
                         Ver más 👀
                     </button>
-
                     <button
                         className="btn btn-success"
-                        onClick={addToCart}
+                        onClick={() => addToCart(pizza)}
                     >
                         Añadir 🛒
                     </button>

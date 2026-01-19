@@ -1,39 +1,8 @@
-const Cart = ({ cart, setCart }) => {
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext.jsx";
 
-    if (!cart || cart.length === 0) {
-        return (
-            <div className="container mt-5 text-center">
-                <h2>🛒 Tu carrito está vacío</h2>
-            </div>
-        );
-    }
-
-    const increase = (id) => {
-        setCart(
-            cart.map((pizza) =>
-                pizza.id === id
-                    ? { ...pizza, count: pizza.count + 1 }
-                    : pizza
-            )
-        );
-    };
-
-    const decrease = (id) => {
-        setCart(
-            cart
-                .map((pizza) =>
-                    pizza.id === id
-                        ? { ...pizza, count: pizza.count - 1 }
-                        : pizza
-                )
-                .filter((pizza) => pizza.count > 0)
-        );
-    };
-
-    const total = cart.reduce(
-        (sum, pizza) => sum + pizza.price * pizza.count,
-        0
-    );
+const Cart = () => {
+    const { cart, increase, decrease, total } = useContext(CartContext);
 
     return (
         <div className="container mt-4" style={{ maxWidth: "600px" }}>
@@ -69,7 +38,6 @@ const Cart = ({ cart, setCart }) => {
             <hr />
             <h4>Total: ${total.toLocaleString()}</h4>
 
-            {/* botón NO funcional como pide el hito */}
             <button className="btn btn-success w-100 mt-3">
                 Pagar 💳
             </button>
