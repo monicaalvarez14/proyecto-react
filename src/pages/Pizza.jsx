@@ -1,26 +1,24 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Pizza = () => {
+    const { id } = useParams();
     const [pizza, setPizza] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/pizzas/p001")
+        fetch(`http://localhost:5000/api/pizzas/${id}`)
             .then((res) => res.json())
             .then((data) => setPizza(data))
-            .catch((error) => console.error(error));
-    }, []);
+            .catch((err) => console.error(err));
+    }, [id]);
 
-    if (!pizza) return <p className="text-center">Cargando...</p>;
+    if (!pizza) return <p className="text-center mt-5">Cargando...</p>;
 
     return (
-        <div className="container my-5">
+        <div className="container mt-5">
             <div className="row">
                 <div className="col-md-6">
-                    <img
-                        src={pizza.img}
-                        alt={pizza.name}
-                        className="img-fluid rounded"
-                    />
+                    <img src={pizza.img} className="img-fluid rounded" />
                 </div>
 
                 <div className="col-md-6">
@@ -29,18 +27,12 @@ const Pizza = () => {
 
                     <h5>Ingredientes:</h5>
                     <ul>
-                        {pizza.ingredients.map((ing, i) => (
-                            <li key={i}>{ing}</li>
+                        {pizza.ingredients.map((i, index) => (
+                            <li key={index}>🍕 {i}</li>
                         ))}
                     </ul>
 
-                    <h4 className="mt-3">
-                        Precio: ${pizza.price.toLocaleString()}
-                    </h4>
-
-                    <button className="btn btn-success mt-3">
-                        Añadir al carrito 🛒
-                    </button>
+                    <h4 className="mt-3">Precio: ${pizza.price.toLocaleString()}</h4>
                 </div>
             </div>
         </div>

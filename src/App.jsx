@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "./context/UserContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import RegisterPage from "./pages/RegisterPage";
@@ -13,27 +13,33 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const { token } = useContext(UserContext);
 
   return (
     <BrowserRouter>
-      <Navbar cart={cart} />
+      <Navbar />
 
       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+
         <Route
-          path="/"
-          element={<Home cart={cart} setCart={setCart} />}
+          path="/profile"
+          element={token ? <Profile /> : <Navigate to="/login" />}
         />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<Login />} />
+
         <Route
-          path="/cart"
-          element={<Cart cart={cart} setCart={setCart} />}
+          path="/login"
+          element={!token ? <Login /> : <Navigate to="/" />}
         />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404" />} />
+
+        <Route
+          path="/register"
+          element={!token ? <RegisterPage /> : <Navigate to="/" />}
+        />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
