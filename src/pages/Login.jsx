@@ -1,48 +1,53 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+const Login = () => {
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(email, password);
+    navigate("/");
+  };
 
-        if (!email.includes('@')) {
-            alert("El correo debe incluir un '@'");
-            return;
-        }
+  return (
+    <div className="container mt-5" style={{ maxWidth: "400px" }}>
+      <h2 className="mb-4">Login</h2>
 
-        if (password.length < 6) {
-            alert("La contraseña debe tener al menos 6 caracteres");
-            return;
-        }
-
-        //Si todo esta bien//
-        alert("Registro exitoso");
-    }
-
-    return (
-        <div className="container mt-4" style={{ maxWidth: "400px" }}>
-            <h2 className="text-center mb-3">Iniciar sesión</h2>
-
-            <form onSubmit={handleSubmit}>
-                {/*Email */}
-                <div className="mb-3">
-                    <label className="form-label">Correo</label>
-                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-
-                {/*Password*/}
-                <div className="mb-3">
-                    <label className="form-label">Contraseña</label>
-                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-
-                <button type="submit" className="btn btn-primary w-100">Enviar</button>
-            </form>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-    );
-}
+
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button className="btn btn-dark w-100">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;

@@ -9,9 +9,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-dark bg-dark px-3">
-            <Link className="navbar-brand" to="/">
-                🍕 Mamma Mía
-            </Link>
+            <Link className="navbar-brand" to="/">🍕 Mamma Mía</Link>
 
             <div className="d-flex gap-3 align-items-center">
                 <Link className="btn btn-success" to="/cart">
@@ -20,24 +18,15 @@ const Navbar = () => {
 
                 {token ? (
                     <>
-                        <Link className="nav-link text-white" to="/profile">
-                            Profile
-                        </Link>
-                        <button
-                            className="btn btn-outline-light"
-                            onClick={logout}
-                        >
+                        <Link className="nav-link text-white" to="/profile">Profile</Link>
+                        <button className="btn btn-outline-light" onClick={logout}>
                             Logout
                         </button>
                     </>
                 ) : (
                     <>
-                        <Link className="nav-link text-white" to="/login">
-                            Login
-                        </Link>
-                        <Link className="nav-link text-white" to="/register">
-                            Register
-                        </Link>
+                        <Link className="nav-link text-white" to="/login">Login</Link>
+                        <Link className="nav-link text-white" to="/register">Register</Link>
                     </>
                 )}
             </div>
